@@ -8,7 +8,7 @@ threads::emulate::async - Create emulated thread (part of threads::emulate)
 
 =head1 VERSION
 
-Version 0.01
+Version 0.0.4
 
 =cut
 

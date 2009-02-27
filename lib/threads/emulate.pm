@@ -11,11 +11,11 @@ threads::emulate - Create and use emulated threads (and share vars easyer)
 
 =head1 VERSION
 
-Version 0.01
+Version 0.0.4
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.0.4';
 
 use threads::emulate::share;
 
@@ -28,8 +28,6 @@ use File::Temp;
 
 use strict;
 use warnings;
-
-#$threads::emulate::VERSION = 0.1;
 
 our ( $sockpath, $obj, %vars, %threads );
 my $thread_id = 0;
@@ -83,7 +81,8 @@ This module exports 3 functions: async, lock and unlock.
 sub _create {
     my $self = shift;
     my %par  = @_;
-    our $sockpath = (File::Temp::tempfile(OPEN => 0, SUFFIX => ".sock"))[1]; #"/tmp/" . __PACKAGE__ . ".sock";
+    our $sockpath = File::Temp::tmpnam(); #"/tmp/" . __PACKAGE__ . ".sock";
+    #our $sockpath = (File::Temp::tempfile(OPEN => 0, SUFFIX => ".sock"))[1]; #"/tmp/" . __PACKAGE__ . ".sock";
     unlink $sockpath;
     threads::emulate::share->set_path($sockpath);
     unless ( exists $par{noFork} and $par{noFork} ) {
